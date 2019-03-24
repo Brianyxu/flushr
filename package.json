@@ -9,13 +9,9 @@
     "grommet-icons": "^4.2.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-<<<<<<< HEAD
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8"
-=======
     "react-scripts": "2.1.8",
     "styled-components": "^4.2.0"
->>>>>>> 635052a8e5fabbcb17d34c2955690e82c6dd0686
   },
   "scripts": {
     "start": "react-scripts start",
