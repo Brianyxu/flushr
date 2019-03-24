@@ -35,13 +35,12 @@ const AppBar = props => (
       style={{ zIndex: "1" }}
       {...props}
     >
-      <Button hoverIndicator="true" label="Main" />
-      <Button
-        component={Link}
-        to="/create"
-        hoverIndicator="true"
-        label="Create"
-      />
+      <Link to="/">
+        <Button hoverIndicator="true" label="Main" />
+      </Link>
+      <Link to="/create">
+        <Button hoverIndicator="true" label="Create" />
+      </Link>
     </Box>
     <Box
       gridArea="nav-end"

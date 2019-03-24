@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router";
 
-class New extends React.Component {
+class New extends Component {
   render() {
     return <h1>Testtesttesttest</h1>;
   }
 }
-export default withRouter(New);
+export default New;
