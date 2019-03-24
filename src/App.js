@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import Amplify, { API } from "aws-amplify";
 import awsmobile from "./aws-exports";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import { Box, Button, Form, FormField, Grid, Grommet, Heading } from "grommet";
+import { Box, Button, Form, FormField, Grommet, TextInput } from "grommet";
 import AppBar from "./components/AppBar";
 import CreatePage from "./components/CreatePage";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-// Amplify.configure(awsmobile);
+Amplify.configure(awsmobile);
 
 export const theme = {
   button: {
@@ -30,7 +29,13 @@ export const theme = {
 };
 
 class App extends Component {
-  state = { mainNav: true, createNav: false, resultNav: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      location: ""
+    };
+  }
+  // state = { mainNav: true, createNav: false, resultNav: false };
 
   getLocations = async () => {
     console.log("GET /locations myapi");
@@ -66,7 +71,7 @@ class App extends Component {
   };
 
   render() {
-    const { mainNav, createNav, results } = this.state;
+    // const { mainNav, createNav, results } = this.state;
     return (
       <Grommet theme={theme}>
         <Box fill>
@@ -74,7 +79,15 @@ class App extends Component {
           <Box direction="row" flex overflow={{ horizontal: "hidden" }}>
             <Box flex direction="row" align="center" justify="center">
               <Form>
-                <FormField name="location" label="Location" />
+                <FormField name="location" label="Location">
+                  <TextInput
+                    placeholder="Enter a location"
+                    value={this.state.location}
+                    onChange={event =>
+                      this.setState({ location: event.target.value })
+                    }
+                  />
+                </FormField>
                 <Button type="submit" primary label="Submit" />
               </Form>
               <Button type="submit" label="Or find bathrooms near you!" />
