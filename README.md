@@ -1,3 +1,7 @@
+# Flushr
+We've all been there before.  After driving for twelve hours without any respite, you finally turn off the highway and find a rest stop.  There are three gas stations available-- which one do you choose?  In urgent need of relief, you barely make the restroom only to find that all the toilets haven't been cleaned in months.  But you've held it for so long and you can only hold it in for approximately seventeen and a half more seconds.  So you make do, and in doing so part of your humanity detaches with us.  Well never fear, for the solution is here!  Welcome to Flushr, where you can avoid those restrooms and spend fifteen minutes finding the highest rated public restrooms near you.  You even have two and a half seconds left to spare just in case of emergencies.  If you find an outsitting public restroom, leave a rating, along with a name and location in order to recommend it to other users!
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
