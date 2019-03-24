@@ -106,10 +106,10 @@ class App extends Component {
     console.log("POST /locations myapi");
     let postObject = {
       body: {
-        name: "Ferg",
-        location: "33.2148,-87.5452",
-        rating: 3.0,
-        count: 10
+        name: "random",
+        location: "test",
+        count: 1,
+        rating: 4.5
       }
     };
     const response = await API.post("myapi", "/locations", postObject);
@@ -121,6 +121,7 @@ class App extends Component {
     let putObject = {
       body: {
         name: "Ferg",
+        location: "33.2148,-87.5452",
         rating: 4.5
       }
     };

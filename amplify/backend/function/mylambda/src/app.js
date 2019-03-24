@@ -61,7 +61,15 @@ const convertUrlType = (param, type) => {
 app.get(path, function(req, res) {
   var params = {
     TableName: tableName,
-    Select: "ALL_ATTRIBUTES"
+    Select: "ALL_ATTRIBUTES",
+    Limit: 3,
+    FilterExpression: "#ra >= :low",
+    ExpressionAttributeNames: {
+      "#ra": "rating"
+    },
+    ExpressionAttributeValues: {
+      ":low": 3.2
+    }
   };
   dynamodb.scan(params, (err, data) => {
     if (err) {
@@ -163,11 +171,37 @@ app.put(path, function(req, res) {
     req.body["userId"] =
       req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
+  let temp = {};
+  let old_rating = 0;
+  let old_count = 0;
+  dynamodb.get(
+    {
+      TableName: tableName,
+      Key: {
+        location: req.body.location,
+        name: req.body.name
+      }
+    },
+    (err, data) => {
+      if (err) {
+        res.json({ error: "Could not load items: " + err.message });
+      } else {
+        old_count = data.count;
+        old_rating = data.rating;
+      }
+    }
+  );
+
+  temp.name = req.body.name;
+  temp.location = req.body.location;
+  temp.count = old_count + 1;
+  temp.rating = (old_rating * old_count + req.body.rating) / (old_count + 1);
 
   let putItemParams = {
     TableName: tableName,
-    Item: req.body
+    Item: temp
   };
+
   dynamodb.put(putItemParams, (err, data) => {
     if (err) {
       res.json({ error: err, url: req.url, body: req.body });
