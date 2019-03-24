@@ -1,6 +1,6 @@
 {
 	"storage": {
-		"mydynamo": {
+		"restrooms": {
 			"service": "DynamoDB",
 			"providerPlugin": "awscloudformation"
 		}
@@ -13,7 +13,7 @@
 			"dependsOn": [
 				{
 					"category": "storage",
-					"resourceName": "mydynamo",
+					"resourceName": "restrooms",
 					"attributes": [
 						"Name",
 						"Arn"

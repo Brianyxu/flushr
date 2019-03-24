@@ -3,13 +3,14 @@ import Amplify, { Storage, API } from "aws-amplify";
 import awsmobile from "./aws-exports";
 import logo from "./logo.svg";
 import "./App.css";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 Amplify.configure(awsmobile);
 
 class App extends Component {
   getLocations = async () => {
     console.log("GET /locations myapi");
-    const response = await API.get("myapi", "/locations/Ferg");
+    const response = await API.get("myapi", "/locations");
     alert(JSON.stringify(response, null, 2));
   };
 
@@ -47,7 +48,14 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+
           <button onClick={this.getLocations}>GET Test</button>
+          {/* <button onClick={this.getLocations}>
+            <Router>
+              <Link to="/new/">GET Test</Link>
+              <Route path="/new/" component="New" />
+            </Router>
+          </button> */}
           <button onClick={this.postLocations}>POST Test</button>
           <button onClick={this.putLocations}>PUT Test</button>
         </header>

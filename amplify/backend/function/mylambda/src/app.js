@@ -58,39 +58,52 @@ const convertUrlType = (param, type) => {
  * HTTP Get method for list objects *
  ********************************/
 
-app.get(path + hashKeyPath, function(req, res) {
-  var condition = {};
-  condition[partitionKeyName] = {
-    ComparisonOperator: "EQ"
-  };
-
-  if (userIdPresent && req.apiGateway) {
-    condition[partitionKeyName]["AttributeValueList"] = [
-      req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH
-    ];
-  } else {
-    try {
-      condition[partitionKeyName]["AttributeValueList"] = [
-        convertUrlType(req.params[partitionKeyName], partitionKeyType)
-      ];
-    } catch (err) {
-      res.json({ error: "Wrong column type " + err });
-    }
-  }
-
-  let queryParams = {
+app.get(path, function(req, res) {
+  var params = {
     TableName: tableName,
-    KeyConditions: condition
+    Select: "ALL_ATTRIBUTES"
   };
-
-  dynamodb.query(queryParams, (err, data) => {
+  dynamodb.scan(params, (err, data) => {
     if (err) {
-      res.json({ error: "Could not load items: " + err });
-    } else {
-      res.json(data.Items);
+      res.json({ error: "Could not load items: " + err.message });
     }
+    res.json({
+      data: data.Items.map(item => {
+        return item;
+      })
+    });
   });
 });
+
+// app.get(path + hashKeyPath, function(req, res) {
+//   var condition = {}
+//   condition[partitionKeyName] = {
+//     ComparisonOperator: 'EQ'
+//   }
+
+//   if (userIdPresent && req.apiGateway) {
+//     condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH ];
+//   } else {
+//     try {
+//       condition[partitionKeyName]['AttributeValueList'] = [ convertUrlType(req.params[partitionKeyName], partitionKeyType) ];
+//     } catch(err) {
+//       res.json({error: 'Wrong column type ' + err});
+//     }
+//   }
+
+//   let queryParams = {
+//     TableName: tableName,
+//     KeyConditions: condition
+//   }
+
+//   dynamodb.scan(queryParams, (err, data) => {
+//     if (err) {
+//       res.json({error: 'Could not load items: ' + err});
+//     } else {
+//       res.json(data.Items);
+//     }
+//   });
+// });
 
 /*****************************************
  * HTTP Get method for get single object *
@@ -151,27 +164,10 @@ app.put(path, function(req, res) {
       req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
-  let old_rating = 0;
-  let old_count = 0;
-
-  dynamodb.get({ location: req.body.location }, (err, data) => {
-    if (err) {
-      res.json({ error: "Could not load items: " + err.message });
-    } else {
-      old_count = data.count;
-      old_rating = data.rating;
-    }
-  });
-
-  let temp = req.body;
-  temp.count = old_count + 1;
-  temp.rating = (old_rating * old_count + req.body.rating) / (old_count + 1);
-
   let putItemParams = {
     TableName: tableName,
-    Item: temp
+    Item: req.body
   };
-
   dynamodb.put(putItemParams, (err, data) => {
     if (err) {
       res.json({ error: err, url: req.url, body: req.body });
