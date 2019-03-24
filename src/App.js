@@ -9,7 +9,7 @@ Amplify.configure(awsmobile);
 class App extends Component {
   getLocations = async () => {
     console.log("GET /locations myapi");
-    const response = await API.get("myapi", "/locations");
+    const response = await API.get("myapi", "/locations/Ferg");
     alert(JSON.stringify(response, null, 2));
   };
 
@@ -29,7 +29,12 @@ class App extends Component {
 
   putLocations = async () => {
     console.log("PUT /locations myapi");
-    let putObject = { body: { name: "Ferg", rating: 4.5 } };
+    let putObject = {
+      body: {
+        name: "Ferg",
+        rating: 4.5
+      }
+    };
     const response = await API.put("myapi", "/locations", putObject);
     alert(JSON.stringify(response, null, 2));
   };
