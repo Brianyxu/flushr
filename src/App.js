@@ -16,10 +16,12 @@ class App extends Component {
   postLocations = async () => {
     console.log("POST /locations myapi");
     let postObject = {
-      name: "Ferg",
-      location: "33.2148,-87.5452",
-      rating: 3.0,
-      count: 10
+      body: {
+        name: "Ferg",
+        location: "33.2148,-87.5452",
+        rating: 3.0,
+        count: 10
+      }
     };
     const response = await API.post("myapi", "/locations", postObject);
     alert(JSON.stringify(response, null, 2));
@@ -27,7 +29,7 @@ class App extends Component {
 
   putLocations = async () => {
     console.log("PUT /locations myapi");
-    let putObject = { name: "Ferg", rating: 4.5 };
+    let putObject = { body: { name: "Ferg", rating: 4.5 } };
     const response = await API.put("myapi", "/locations", putObject);
     alert(JSON.stringify(response, null, 2));
   };
