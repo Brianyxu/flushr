@@ -12,8 +12,6 @@ function ResultPage(props) {
     // alert(JSON.stringify(response, null, 2));
   };
 
-  const [results, setResults] = useState([getLocations().data]);
-
   return (
     <Grommet theme={theme}>
       <Box fill>
@@ -28,9 +26,12 @@ function ResultPage(props) {
               ]}
               data={[
                 {
-                  name: results[0].name,
-                  rating: results[0].rating,
-                  numRatings: results[0].count
+                  name: "Ferg",
+                  rating: 4.0,
+                  numRatings: 10
+                  // name: await getLocations(data => data[0].name),
+                  // rating: await getLocations(data => data[0].rating),
+                  // numRatings: await getLocations(data => data[0].count)
                 }
               ]}
             />
