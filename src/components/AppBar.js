@@ -41,6 +41,9 @@ const AppBar = props => (
       <Link to="/create">
         <Button hoverIndicator="true" label="Create" />
       </Link>
+      <Link to="/results">
+        <Button hoverIndicator="true" label="Results" />
+      </Link>
     </Box>
     <Box
       gridArea="nav-end"

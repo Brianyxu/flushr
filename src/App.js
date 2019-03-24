@@ -3,6 +3,7 @@ import Amplify from "aws-amplify";
 import awsmobile from "./aws-exports";
 
 import CreatePage from "./components/CreatePage";
+import ResultPage from "./components/ResultPage";
 import MainPage from "./components/MainPage";
 import { Route, Switch } from "react-router-dom";
 
@@ -31,6 +32,7 @@ function App() {
     <div className="App">
       <Switch>
         <Route path="/create" component={CreatePage} />
+        <Route path="/results" component={ResultPage} />
         <Route exact path="/" component={MainPage} />
       </Switch>
     </div>
