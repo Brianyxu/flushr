@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import Amplify, { API } from "aws-amplify";
 import awsmobile from "./aws-exports";
-import logo from "./logo.svg";
-import "./App.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { Box, Button, Form, FormField, Grid, Grommet, Heading } from "grommet";
+import AppBar from "./components/AppBar";
+import CreatePage from "./components/CreatePage";
 
-Amplify.configure(awsmobile);
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-const theme = {
+// Amplify.configure(awsmobile);
+
+export const theme = {
   button: {
     border: {
       width: "4px"
@@ -26,72 +28,6 @@ const theme = {
     }
   }
 };
-
-const AppBar = props => (
-  <Grid
-    rows={["xsmall"]}
-    columns={["small", "large", "small"]}
-    areas={[
-      { name: "head", start: [0, 0], end: [0, 0] },
-      { name: "nav", start: [1, 0], end: [1, 0] },
-      { name: "nav-end", start: [2, 0], end: [2, 0] }
-    ]}
-  >
-    <Box
-      gridArea="head"
-      tag="header"
-      direction="row"
-      align="center"
-      justify="evenly"
-      background="brand"
-      // elevation="medium"
-      style={{ zIndex: "1" }}
-      {...props}
-    >
-      <Heading level="3">Flushr</Heading>
-    </Box>
-    <Box
-      gridArea="nav"
-      direction="row"
-      align="center"
-      justify="evenly"
-      background="brand"
-      // elevation="medium"
-      style={{ zIndex: "1" }}
-      {...props}
-    >
-      <Button
-        // active=
-        hoverIndicator="true"
-        onClick={() =>
-          this.setState(() => ({
-            mainNav: true,
-            createNav: false,
-            resultNav: false
-          }))
-        }
-        label="Main"
-      />
-      <Button
-        hoverIndicator="true"
-        onClick={() =>
-          this.setState(() => ({
-            mainNav: false,
-            createNav: true,
-            resultNav: false
-          }))
-        }
-        label="Create"
-      />
-    </Box>
-    <Box
-      gridArea="nav-end"
-      background="brand"
-      // elevation="medium"
-      style={{ zIndex: "1" }}
-    />
-  </Grid>
-);
 
 class App extends Component {
   state = { mainNav: true, createNav: false, resultNav: false };
@@ -162,6 +98,12 @@ class App extends Component {
             />
           </Box>
         </Box>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/create" component={CreatePage} />
+            <Route path="/main" component={App.render} />
+          </Switch>
+        </BrowserRouter>
       </Grommet>
     );
   }
