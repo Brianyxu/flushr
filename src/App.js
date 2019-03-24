@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Amplify, { Storage, API } from "aws-amplify";
+import awsmobile from "./aws-exports";
 import logo from "./logo.svg";
 import "./App.css";
+
+Amplify.configure(awsmobile);
 
 class App extends Component {
   getLocations = async () => {
