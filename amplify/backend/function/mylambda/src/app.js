@@ -62,7 +62,6 @@ app.get(path, function(req, res) {
   var params = {
     TableName: tableName,
     Select: "ALL_ATTRIBUTES",
-    Limit: 3,
     FilterExpression: "#ra >= :low",
     ExpressionAttributeNames: {
       "#ra": "rating"

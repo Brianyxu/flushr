@@ -2,6 +2,7 @@ import React from "react";
 import { API } from "aws-amplify";
 import { theme } from "../App";
 import { Box, Button, Form, FormField, Grommet } from "grommet";
+import { Link } from "react-router-dom";
 import AppBar from "./AppBar";
 
 function MainPage(props) {
@@ -48,10 +49,12 @@ function MainPage(props) {
               <FormField name="location" label="Location" />
               <Button type="submit" primary label="Submit" />
             </Form>
-            <Button type="submit" label="Or find bathrooms near you!" />
+            <Link to="/results">
+              <Button type="submit" label="Or find bathrooms near you!" />
+            </Link>
           </Box>
         </Box>
-        <Box direction="row" flex align="center" justify="center">
+        {/* <Box direction="row" flex align="center" justify="center">
           <Button
             hoverIndicator="true"
             onClick={() => getLocations()}
@@ -67,7 +70,7 @@ function MainPage(props) {
             onClick={() => putLocations()}
             label="PUT Test"
           />
-        </Box>
+        </Box> */}
       </Box>
     </Grommet>
   );
